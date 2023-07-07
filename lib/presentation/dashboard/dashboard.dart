@@ -270,7 +270,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: colorBlue.withOpacity(0.5))),
+                    border: Border.all(color: colorGrey.withOpacity(0.5))),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: ChatMain(

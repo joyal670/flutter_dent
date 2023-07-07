@@ -32,7 +32,9 @@ class IndivigualChatScreen extends StatelessWidget {
           Expanded(
             child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return const ChatListItem();
+                  return ChatListItem(
+                    isLargeScreen: isLargeScreen,
+                  );
                 },
                 separatorBuilder: (context, index) {
                   return height10;
@@ -46,8 +48,10 @@ class IndivigualChatScreen extends StatelessWidget {
 }
 
 class ChatListItem extends StatelessWidget {
+  final bool isLargeScreen;
   const ChatListItem({
     super.key,
+    required this.isLargeScreen,
   });
 
   @override
@@ -57,11 +61,14 @@ class ChatListItem extends StatelessWidget {
       elevation: 1,
       child: InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ChatPage(),
-              ));
+          if (isLargeScreen) {
+          } else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatPage(),
+                ));
+          }
         },
         child: Padding(
           padding: const EdgeInsets.all(12.0),
