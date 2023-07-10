@@ -1,23 +1,25 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:js_interop';
-
 import 'package:dentcare/presentation/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/dim.dart';
 import '../../../model/chat_model.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatMain extends StatelessWidget {
   final isLargeScreen;
   final List<ChatModel> chatList;
 
-  const ChatMain({
+  ChatMain({
     super.key,
     required this.chatList,
     required this.isLargeScreen,
   });
+
+  XFile? imageFile = null;
+  final messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +38,11 @@ class ChatMain extends StatelessWidget {
                 border: Border.all(color: colorBlue)),
             child: Row(
               children: [
-                const Expanded(
+                Expanded(
                     child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: messageController,
                     maxLines: 1,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -49,9 +52,14 @@ class ChatMain extends StatelessWidget {
                 )),
                 Row(
                   children: [
-                    const Icon(
-                      Icons.attach_file,
-                      color: colorBlue,
+                    InkWell(
+                      onTap: () => {
+                        imageSelector(context, "gallery"),
+                      },
+                      child: const Icon(
+                        Icons.attach_file,
+                        color: colorBlue,
+                      ),
                     ),
                     width20,
                     SizedBox(
@@ -122,6 +130,24 @@ class ChatMain extends StatelessWidget {
             itemCount: chatList.length),
       ),
     );
+  }
+
+  Future imageSelector(BuildContext context, String pickerType) async {
+    switch (pickerType) {
+      case "gallery":
+
+        /// GALLERY IMAGE PICKER
+        imageFile = await ImagePicker()
+            .pickImage(source: ImageSource.gallery, imageQuality: 100);
+
+        break;
+    }
+
+    if (imageFile != null) {
+      messageController.text = imageFile!.name.toString();
+    } else {
+      print("You have not taken image");
+    }
   }
 }
 
