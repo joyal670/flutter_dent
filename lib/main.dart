@@ -1,4 +1,4 @@
-import 'package:dentcare/presentation/signin.dart';
+import 'package:dentcare/presentation/dashboard/signin/signin.dart';
 import 'package:flutter/material.dart';
 
 void main() {
