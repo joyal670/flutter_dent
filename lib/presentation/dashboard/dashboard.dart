@@ -1,11 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dentcare/core/colors.dart';
 import 'package:dentcare/core/dim.dart';
-import 'package:dentcare/presentation/dashboard/chat_main.dart';
-import 'package:dentcare/presentation/dashboard/group.dart';
-import 'package:dentcare/presentation/dashboard/indivigual.dart';
+import 'package:dentcare/presentation/dashboard/chat/chat_main.dart';
+import 'package:dentcare/presentation/dashboard/group/group.dart';
+import 'package:dentcare/presentation/dashboard/indivigual/indivigual.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/chat_model.dart';
+import '../widget/widgets.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -52,40 +55,40 @@ class _DashboardScreenState extends State<DashboardScreen>
       bottomNavigationBar: isLargeScreen
           ? SizedBox(
               width: double.infinity,
-              height: 120,
+              height: 100,
               child: Container(
                 decoration: const BoxDecoration(color: colorBlack),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      "assets/images/logo_two.png",
+                    ImageWidget(
+                      imgUrl: "assets/images/logo_two.png",
                     ),
-                    const Row(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          'Team',
-                          style: TextStyle(
+                        TitleText(
+                          textStyle: TextStyle(
                               color: colorWhite, fontWeight: FontWeight.w600),
+                          title: 'Team',
                         ),
                         width40,
-                        Text(
-                          'Case Studies',
-                          style: TextStyle(
+                        TitleText(
+                          textStyle: TextStyle(
                               color: colorWhite, fontWeight: FontWeight.w600),
+                          title: 'Case Studies',
                         ),
                         width40,
-                        Text(
-                          'Publications',
-                          style: TextStyle(
+                        TitleText(
+                          textStyle: TextStyle(
                               color: colorWhite, fontWeight: FontWeight.w600),
-                        )
+                          title: 'Publications',
+                        ),
                       ],
                     ),
-                    const Icon(
+                    Icon(
                       Icons.language,
                       color: colorGrey,
                     ),
@@ -98,31 +101,30 @@ class _DashboardScreenState extends State<DashboardScreen>
               height: 70,
               child: Container(
                 decoration: const BoxDecoration(color: colorBlack),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      "assets/images/logo_two.png",
+                    ImageWidget(
+                      imgUrl: 'assets/images/logo_two.png',
                       width: 70,
                     ),
-                    const Column(
+                    Column(
                       children: [
-                        Text(
-                          'Team',
-                          style: TextStyle(color: colorWhite),
+                        TitleText(
+                          textStyle: TextStyle(color: colorWhite),
+                          title: 'Team',
                         ),
-                        Text(
-                          'Case Studies',
-                          style: TextStyle(color: colorWhite),
-                        ),
-                        Text(
-                          'Publications',
-                          style: TextStyle(color: colorWhite),
+                        TitleText(
+                            textStyle: TextStyle(color: colorWhite),
+                            title: 'Case Studies'),
+                        TitleText(
+                          textStyle: TextStyle(color: colorWhite),
+                          title: 'Publications',
                         )
                       ],
                     ),
-                    const Icon(
+                    Icon(
                       Icons.language,
                       color: colorGrey,
                     ),
@@ -135,14 +137,13 @@ class _DashboardScreenState extends State<DashboardScreen>
         automaticallyImplyLeading: false,
         elevation: 1.5,
         toolbarHeight: 80,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50),
-          child: Image.asset(
-            "assets/images/logo.png",
-            width: 130,
-            height: 100,
-          ),
-        ),
+        title: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50),
+            child: ImageWidget(
+              imgUrl: "assets/images/logo.png",
+              width: 130,
+              height: 100,
+            )),
         actions: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -157,11 +158,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                       color: colorBlack,
                       borderRadius: BorderRadius.circular(5)),
                   child: const Center(
-                    child: Text(
-                      'Nivin Thomas',
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                  ),
+                      child: TitleText(
+                          textStyle: TextStyle(fontWeight: FontWeight.w600),
+                          title: 'Nivin Thomas')),
                 ),
               ),
               width50,
@@ -173,115 +172,116 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget largeScreen() {
-    List<ChatModel> chatList = [];
-    chatList.add(ChatModel(type: 1, message: "skndf"));
-    chatList.add(ChatModel(type: 1, message: "skndf"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
-    chatList.add(ChatModel(type: 1, message: "skndf"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
-    chatList.add(ChatModel(type: 1, message: "skndszdfasgfff"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwsfsfdfsdfbdh"));
-    return SafeArea(
-        child: Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 80, right: 30, top: 30),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: colorBlue.withOpacity(0.5))),
-              child: Column(
-                children: [
-                  height20,
-                  TabBar(
-                      controller: _tabController,
-                      labelColor: Colors.blue,
-                      indicatorWeight: 2,
-                      indicatorColor: colorBlue,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      unselectedLabelColor: Colors.grey,
-                      tabs: [
-                        Tab(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                      _activeIndex == 0 ? colorBlue : colorGrey,
-                                  child: const Icon(
-                                    Icons.person,
-                                    color: colorWhite,
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover)),
+      child: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 80, right: 30, top: 30),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: colorWhite,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: colorBlue.withOpacity(0.5))),
+                child: Column(
+                  children: [
+                    height20,
+                    TabBar(
+                        controller: _tabController,
+                        labelColor: Colors.blue,
+                        indicatorWeight: 2,
+                        indicatorColor: colorBlue,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        unselectedLabelColor: Colors.grey,
+                        tabs: [
+                          Tab(
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: _activeIndex == 0
+                                        ? colorBlue
+                                        : colorGrey,
+                                    child: const Icon(
+                                      Icons.person,
+                                      color: colorWhite,
+                                    ),
                                   ),
-                                ),
-                                width10,
-                                const Text('INDIVIGUAL')
-                              ],
+                                  width10,
+                                  const Text(
+                                    'INDIVIGUAL',
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Tab(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:
-                                      _activeIndex == 0 ? colorGrey : colorBlue,
-                                  child: const Icon(
-                                    Icons.group,
-                                    color: colorWhite,
+                          Tab(
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: _activeIndex == 0
+                                        ? colorGrey
+                                        : colorBlue,
+                                    child: const Icon(
+                                      Icons.group,
+                                      color: colorWhite,
+                                    ),
                                   ),
-                                ),
-                                width10,
-                                const Text('GROUP')
-                              ],
+                                  width10,
+                                  const Text('GROUP')
+                                ],
+                              ),
                             ),
+                          )
+                        ]),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          IndivigualChatScreen(
+                            isLargeScreen: isLargeScreen,
                           ),
-                        )
-                      ]),
-                  Expanded(
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        IndivigualChatScreen(
-                          isLargeScreen: isLargeScreen,
-                        ),
-                        const GroupChatScreen()
-                      ],
-                    ),
-                  )
-                ],
+                          const GroupChatScreen()
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 30, top: 30),
-            child: Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30, top: 30),
+              child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: colorGrey.withOpacity(0.5))),
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: colorGrey.withOpacity(0.5))),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: ChatMain(
-                    chatList: chatList,
-                    isLargeScreen: isLargeScreen,
-                  ),
-                )),
-          ),
-        )
-      ],
-    ));
+                    child: ChatMain(
+                      chatList: getSampleChat(),
+                      isLargeScreen: isLargeScreen,
+                    ),
+                  )),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Widget smallScreen() {
@@ -349,4 +349,18 @@ class _DashboardScreenState extends State<DashboardScreen>
       ),
     );
   }
+}
+
+List<ChatModel> getSampleChat() {
+  List<ChatModel> chatList = [];
+  chatList.add(ChatModel(type: 1, message: "skndf", isSelected: true));
+  chatList.add(ChatModel(type: 1, message: "skndf", isSelected: false));
+  chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh", isSelected: true));
+  chatList.add(ChatModel(type: 1, message: "skndf", isSelected: true));
+  chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh", isSelected: true));
+  chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh", isSelected: true));
+  chatList.add(ChatModel(type: 1, message: "skndszdfasgfff", isSelected: true));
+  chatList.add(
+      ChatModel(type: 0, message: "qufyweuqwsfsfdfsdfbdh", isSelected: true));
+  return chatList;
 }

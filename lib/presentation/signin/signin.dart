@@ -3,7 +3,7 @@ import 'package:dentcare/core/dim.dart';
 import 'package:dentcare/presentation/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 
-import '../../widget/widgets.dart';
+import '../widget/widgets.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

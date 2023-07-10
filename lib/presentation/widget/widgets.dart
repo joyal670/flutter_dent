@@ -24,15 +24,21 @@ class TitleText extends StatelessWidget {
 
 class ImageWidget extends StatelessWidget {
   final imgUrl;
+  final width;
+  final height;
   const ImageWidget({
     super.key,
     required this.imgUrl,
+    this.width,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return Image.asset(
       imgUrl,
+      width: width,
+      height: height,
     );
   }
 }

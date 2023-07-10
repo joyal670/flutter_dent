@@ -1,10 +1,13 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:js_interop';
 
+import 'package:dentcare/presentation/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/colors.dart';
-import '../../core/dim.dart';
-import '../../model/chat_model.dart';
+import '../../../core/colors.dart';
+import '../../../core/dim.dart';
+import '../../../model/chat_model.dart';
 
 class ChatMain extends StatelessWidget {
   final isLargeScreen;
@@ -102,26 +105,22 @@ class ChatMain extends StatelessWidget {
           width15
         ],
       ),
-      // body: ListView(
-      //     children: List.generate(chatList.length, (index) {
-      //   return chatList[index].type == 0
-      //       ? ItemOne(
-      //           model: chatList[index],
-      //           isLargeScreen: isLargeScreen,
-      //         )
-      //       : ItemTwo(
-      //           model: chatList[index],
-      //           isLargeScreen: isLargeScreen,
-      //         );
-      // })),
-      body: ListView.separated(
-          itemBuilder: (context, index) {
-            return chatList[index].type == 0
-                ? ItemOne(model: chatList[index], isLargeScreen: isLargeScreen)
-                : ItemTwo(model: chatList[index], isLargeScreen: isLargeScreen);
-          },
-          separatorBuilder: (context, index) => height0,
-          itemCount: chatList.length),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/inner_background.png'),
+                fit: BoxFit.cover)),
+        child: ListView.separated(
+            itemBuilder: (context, index) {
+              return chatList[index].type == 0
+                  ? ItemOne(
+                      model: chatList[index], isLargeScreen: isLargeScreen)
+                  : ItemTwo(
+                      model: chatList[index], isLargeScreen: isLargeScreen);
+            },
+            separatorBuilder: (context, index) => height0,
+            itemCount: chatList.length),
+      ),
     );
   }
 }
@@ -145,40 +144,30 @@ class ItemOne extends StatelessWidget {
         children: [
           width5,
           const CircleAvatar(
-            backgroundColor: colorGrey,
-            child: Text(
-              'OP',
-              style: TextStyle(color: colorWhite),
-            ),
-          ),
+              backgroundColor: colorGrey,
+              child: TitleText(
+                  textStyle: TextStyle(color: colorWhite), title: "OP")),
           width20,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: isLargeScreen
-                    ? MediaQuery.of(context).size.width * .4
-                    : MediaQuery.of(context).size.width * .7,
-                child: Container(
+              Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: colorWhite,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Text(
-                    model.message.toString(),
-                    style: const TextStyle(
-                        color: colorBlack,
-                        fontWeight: FontWeight.w600,
-                        overflow: TextOverflow.clip),
-                  ),
-                ),
-              ),
+                      color: colorWhite,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: colorGrey.withOpacity(0.2))),
+                  child: TitleText(
+                      textStyle: TextStyle(
+                          color: colorBlack,
+                          fontWeight: FontWeight.w600,
+                          overflow: TextOverflow.clip),
+                      title: model.message)),
               height5,
-              const Text(
-                '8.00 PM',
-                style: TextStyle(color: colorGrey, fontWeight: FontWeight.w600),
-              ),
+              const TitleText(
+                  textStyle:
+                      TextStyle(color: colorBlack, fontWeight: FontWeight.w500),
+                  title: "8.00 PM"),
             ],
           )
         ],
@@ -211,31 +200,27 @@ class ItemTwo extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: colorBlue,
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  model.message,
-                  style: const TextStyle(
-                      color: colorWhite,
-                      fontWeight: FontWeight.w600,
-                      overflow: TextOverflow.clip),
-                ),
+                child: TitleText(
+                    textStyle: TextStyle(
+                        color: colorWhite,
+                        fontWeight: FontWeight.w600,
+                        overflow: TextOverflow.clip),
+                    title: model.message),
               ),
               height5,
-              const Text(
-                '8.00 PM',
-                style: TextStyle(color: colorGrey, fontWeight: FontWeight.w600),
-              ),
+              const TitleText(
+                  textStyle:
+                      TextStyle(color: colorBlack, fontWeight: FontWeight.w500),
+                  title: "8.00 PM"),
             ],
           ),
           width15,
           const CircleAvatar(
-            backgroundColor: colorGrey,
-            child: Text(
-              'OP',
-              style: TextStyle(color: colorWhite),
-            ),
-          ),
+              backgroundColor: colorGrey,
+              child: TitleText(
+                  textStyle: TextStyle(color: colorWhite), title: "OP")),
         ],
       ),
     );
