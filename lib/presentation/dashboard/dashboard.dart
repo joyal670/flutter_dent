@@ -18,7 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _activeIndex = 0;
-  var isLargeScreen = false;
+  var isLargeScreen = true;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraint) {
-          if (constraint.maxWidth < 600) {
+          if (constraint.maxWidth < 1000) {
             isLargeScreen = false;
             return smallScreen();
           } else {
@@ -180,8 +180,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     chatList.add(ChatModel(type: 1, message: "skndf"));
     chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
     chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
-    chatList.add(ChatModel(type: 1, message: "skndf"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
+    chatList.add(ChatModel(type: 1, message: "skndszdfasgfff"));
+    chatList.add(ChatModel(type: 0, message: "qufyweuqwsfsfdfsdfbdh"));
     return SafeArea(
         child: Row(
       children: [

@@ -12,14 +12,15 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    chatList.add(ChatModel(type: 1, message: "skndf"));
-    chatList.add(ChatModel(type: 1, message: "skndf"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
-    chatList.add(ChatModel(type: 1, message: "skndf"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
-    chatList.add(ChatModel(type: 1, message: "skndf"));
-    chatList.add(ChatModel(type: 0, message: "qufyweuqwbdh"));
+    chatList.add(ChatModel(type: 1, message: "one"));
+    chatList.add(ChatModel(type: 1, message: "two"));
+    chatList.add(ChatModel(type: 0, message: "three"));
+    chatList.add(ChatModel(type: 1, message: "four"));
+    chatList.add(ChatModel(type: 0, message: "five"));
+    chatList.add(ChatModel(type: 0, message: "six"));
+    chatList.add(ChatModel(type: 1, message: "seven"));
+    chatList.add(ChatModel(type: 0, message: "eight"));
+    chatList.add(ChatModel(type: 0, message: "nine"));
 
     return ChatMain(
       chatList: chatList,

@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 
 import '../../core/colors.dart';
@@ -6,13 +8,13 @@ import '../../model/chat_model.dart';
 
 class ChatMain extends StatelessWidget {
   final isLargeScreen;
+  final List<ChatModel> chatList;
+
   const ChatMain({
     super.key,
     required this.chatList,
     required this.isLargeScreen,
   });
-
-  final List<ChatModel> chatList;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +33,9 @@ class ChatMain extends StatelessWidget {
                 border: Border.all(color: colorBlue)),
             child: Row(
               children: [
-                Expanded(
+                const Expanded(
                     child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: TextField(
                     maxLines: 1,
                     decoration: InputDecoration(
@@ -44,7 +46,7 @@ class ChatMain extends StatelessWidget {
                 )),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.attach_file,
                       color: colorBlue,
                     ),
@@ -60,9 +62,9 @@ class ChatMain extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10.0),
                                 )),
                                 backgroundColor:
-                                    MaterialStatePropertyAll(colorBlue)),
+                                    const MaterialStatePropertyAll(colorBlue)),
                             onPressed: () {},
-                            child: Icon(Icons.send))),
+                            child: const Icon(Icons.send))),
                     width15
                   ],
                 )
@@ -72,7 +74,7 @@ class ChatMain extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15))),
         backgroundColor: colorWhite,
@@ -100,18 +102,26 @@ class ChatMain extends StatelessWidget {
           width15
         ],
       ),
-      body: ListView(
-          children: List.generate(chatList.length, (index) {
-        return chatList[index].type == 0
-            ? ItemOne(
-                model: chatList[index],
-                isLargeScreen: isLargeScreen,
-              )
-            : ItemTwo(
-                model: chatList[index],
-                isLargeScreen: isLargeScreen,
-              );
-      })),
+      // body: ListView(
+      //     children: List.generate(chatList.length, (index) {
+      //   return chatList[index].type == 0
+      //       ? ItemOne(
+      //           model: chatList[index],
+      //           isLargeScreen: isLargeScreen,
+      //         )
+      //       : ItemTwo(
+      //           model: chatList[index],
+      //           isLargeScreen: isLargeScreen,
+      //         );
+      // })),
+      body: ListView.separated(
+          itemBuilder: (context, index) {
+            return chatList[index].type == 0
+                ? ItemOne(model: chatList[index], isLargeScreen: isLargeScreen)
+                : ItemTwo(model: chatList[index], isLargeScreen: isLargeScreen);
+          },
+          separatorBuilder: (context, index) => height0,
+          itemCount: chatList.length),
     );
   }
 }
@@ -155,9 +165,9 @@ class ItemOne extends StatelessWidget {
                     color: colorWhite,
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  child: const Text(
-                    'Lorem Ipsum has been the industrys standard dummay text ever since the 1500s,',
-                    style: TextStyle(
+                  child: Text(
+                    model.message.toString(),
+                    style: const TextStyle(
                         color: colorBlack,
                         fontWeight: FontWeight.w600,
                         overflow: TextOverflow.clip),
@@ -197,23 +207,18 @@ class ItemTwo extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(
-                width: isLargeScreen
-                    ? MediaQuery.of(context).size.width * .4
-                    : MediaQuery.of(context).size.width * .7,
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: colorBlue,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: const Text(
-                    'Lorem Ipsum has been the industrys standard dummay text ever since the 1500s,',
-                    style: TextStyle(
-                        color: colorWhite,
-                        fontWeight: FontWeight.w600,
-                        overflow: TextOverflow.clip),
-                  ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: colorBlue,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Text(
+                  model.message,
+                  style: const TextStyle(
+                      color: colorWhite,
+                      fontWeight: FontWeight.w600,
+                      overflow: TextOverflow.clip),
                 ),
               ),
               height5,
