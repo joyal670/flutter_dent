@@ -14,3 +14,6 @@ const colorOrange = Color.fromARGB(255, 233, 142, 14);
 const colorGreen = Color.fromARGB(255, 14, 233, 58);
 const colorMobyDick = Color(0xffDEE8EE);
 const colorBackground = Color(0xffFDFDFF);
+const colorWildSand2 = Color(0xffF5F5F5);
+const colorCodGrey = Color(0xff1D1D1D);
+const colorPeach = Color(0xffFFE8B4);

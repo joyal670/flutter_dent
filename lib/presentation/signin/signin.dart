@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dentcare/core/colors.dart';
 import 'package:dentcare/core/dim.dart';
 import 'package:dentcare/presentation/dashboard/dashboard.dart';

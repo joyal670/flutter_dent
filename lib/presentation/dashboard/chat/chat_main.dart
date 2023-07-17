@@ -2,6 +2,7 @@
 
 import 'package:dentcare/presentation/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:modals/modals.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/dim.dart';
@@ -52,15 +53,16 @@ class ChatMain extends StatelessWidget {
                 )),
                 Row(
                   children: [
-                    InkWell(
-                      onTap: () => {
-                        imageSelector(context, "gallery"),
-                      },
-                      child: const Icon(
-                        Icons.attach_file,
-                        color: colorBlue,
-                      ),
-                    ),
+                    // InkWell(
+                    //   onTap: () => {
+                    //     imageSelector(context, "gallery"),
+                    //   },
+                    //   child: const Icon(
+                    //     Icons.attach_file,
+                    //     color: colorBlue,
+                    //   ),
+                    // ),
+                    AttachmentAnchorPage(),
                     width20,
                     SizedBox(
                         width: 50,
@@ -105,13 +107,7 @@ class ChatMain extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        actions: const [
-          Icon(
-            Icons.info,
-            color: colorBlue,
-          ),
-          width15
-        ],
+        actions: [AnchorPage()],
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -249,6 +245,324 @@ class ItemTwo extends StatelessWidget {
                   textStyle: TextStyle(color: colorWhite), title: "OP")),
         ],
       ),
+    );
+  }
+}
+
+class AnchorPage extends StatelessWidget {
+  const AnchorPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        children: [
+          ModalAnchor(
+            tag: 'anchorTag',
+            child: Icon(
+              Icons.info,
+              color: colorBlue,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              showModal(ModalEntry.anchored(context,
+                  tag: 'anchoredModalTag',
+                  anchorTag: 'anchorTag',
+                  modalAlignment: Alignment.topRight,
+                  anchorAlignment: Alignment.centerRight,
+                  barrierDismissible: true,
+                  child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: colorWhite,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: InfoWidget())));
+            },
+            child: Row(
+              children: const [
+                Icon(
+                  Icons.info,
+                  color: colorBlue,
+                ),
+                width15
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class InfoWidget extends StatelessWidget {
+  const InfoWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 500,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: const [
+              CircleAvatar(
+                backgroundColor: colorPeach,
+                radius: 30,
+                child: Text(
+                  'A',
+                  style:
+                      TextStyle(color: colorBlack, fontWeight: FontWeight.bold),
+                ),
+              ),
+              width20,
+              Text(
+                'Dr.Thomas',
+                style: TextStyle(
+                    decoration: TextDecoration.none,
+                    color: colorBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
+              )
+            ],
+          ),
+          height10,
+          Divider(
+            thickness: 1,
+            color: colorGrey.withOpacity(0.3),
+          ),
+          height25,
+          Text(
+            'PERSONAL DETAILS',
+            style: TextStyle(
+                decoration: TextDecoration.none,
+                color: colorBlack,
+                fontWeight: FontWeight.bold,
+                fontSize: 12),
+          ),
+          height10,
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      color: colorWildSand2,
+                      borderRadius: BorderRadius.circular(7)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'First Name',
+                        style: TextStyle(
+                            color: colorGrey,
+                            decoration: TextDecoration.none,
+                            fontSize: 10),
+                      ),
+                      height5,
+                      Text(
+                        "Dr",
+                        style: TextStyle(
+                            color: colorBlack,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.none,
+                            fontSize: 12),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              width20,
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      color: colorWildSand2,
+                      borderRadius: BorderRadius.circular(7)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Last Name',
+                        style: TextStyle(
+                            color: colorGrey,
+                            decoration: TextDecoration.none,
+                            fontSize: 10),
+                      ),
+                      height5,
+                      Text(
+                        "Thomas",
+                        style: TextStyle(
+                            color: colorBlack,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.none,
+                            fontSize: 12),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          height15,
+          Container(
+            width: 500,
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+                color: colorWildSand2, borderRadius: BorderRadius.circular(7)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Email Address',
+                  style: TextStyle(
+                      color: colorGrey,
+                      decoration: TextDecoration.none,
+                      fontSize: 10),
+                ),
+                height5,
+                Text(
+                  "info@gmail.com",
+                  style: TextStyle(
+                      color: colorMineShaft,
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.none,
+                      fontSize: 12),
+                )
+              ],
+            ),
+          ),
+          height30,
+          Divider(
+            thickness: 1,
+            color: colorGrey.withOpacity(0.3),
+          ),
+          height25,
+          Text(
+            "You've Signed In",
+            style: TextStyle(
+              color: colorCodGrey,
+              fontSize: 33,
+              fontWeight: FontWeight.w200,
+              decoration: TextDecoration.none,
+            ),
+          ),
+          Row(
+            children: const [
+              Text(
+                "With",
+                style: TextStyle(
+                  color: colorCodGrey,
+                  fontSize: 33,
+                  fontWeight: FontWeight.w200,
+                  decoration: TextDecoration.none,
+                ),
+              ),
+              width5,
+              ImageWidget(
+                imgUrl: 'assets/images/logo_2.png',
+                width: 100,
+              ),
+              width5,
+              Text(
+                "Chat",
+                style: TextStyle(
+                  color: colorCodGrey,
+                  fontSize: 33,
+                  fontWeight: FontWeight.w200,
+                  decoration: TextDecoration.none,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class AttachmentAnchorPage extends StatelessWidget {
+  const AttachmentAnchorPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        children: [
+          ModalAnchor(
+            tag: 'AttachmentAnchorPage',
+            child: Icon(
+              Icons.attach_file,
+              color: colorBlue,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              showModal(ModalEntry.anchored(context,
+                  tag: 'anchoredModalTag',
+                  anchorTag: 'AttachmentAnchorPage',
+                  modalAlignment: Alignment.bottomCenter,
+                  anchorAlignment: Alignment.topCenter,
+                  barrierDismissible: true,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: AddAttachmentWidget(),
+                  )));
+            },
+            child: Row(
+              children: const [
+                Icon(
+                  Icons.attach_file,
+                  color: colorBlue,
+                ),
+                width15
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddAttachmentWidget extends StatelessWidget {
+  const AddAttachmentWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        FloatingActionButton(
+          backgroundColor: colorBlue,
+          onPressed: () {},
+          child: Icon(
+            Icons.camera,
+            color: colorWhite,
+          ),
+        ),
+        height15,
+        FloatingActionButton(
+          backgroundColor: colorBlue,
+          onPressed: () {},
+          child: Icon(
+            Icons.photo,
+            color: colorWhite,
+          ),
+        ),
+        height15,
+        FloatingActionButton(
+          backgroundColor: colorBlue,
+          onPressed: () {},
+          child: Icon(
+            Icons.edit_document,
+            color: colorWhite,
+          ),
+        ),
+      ],
     );
   }
 }
