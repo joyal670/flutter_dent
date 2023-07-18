@@ -527,7 +527,7 @@ class AttachmentAnchorPage extends StatelessWidget {
 }
 
 class AddAttachmentWidget extends StatefulWidget {
-  AddAttachmentWidget({super.key});
+  const AddAttachmentWidget({super.key});
 
   @override
   State<AddAttachmentWidget> createState() => _AddAttachmentWidgetState();
@@ -535,60 +535,69 @@ class AddAttachmentWidget extends StatefulWidget {
 
 class _AddAttachmentWidgetState extends State<AddAttachmentWidget>
     with SingleTickerProviderStateMixin {
-  late AnimationController animationController =
-      AnimationController(vsync: this, duration: const Duration(seconds: 1))
-        ..repeat(reverse: false)
-        ..forward();
+  late AnimationController animationController = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 500))
+    ..repeat(reverse: false)
+    ..forward();
 
-  late Animation<Offset> animation =
+  late Animation<Offset> animation1 =
       Tween<Offset>(begin: Offset(0.0, 0.2), end: Offset.zero)
           .animate(animationController);
 
-  late AnimationController animationControllerq =
-      AnimationController(vsync: this, duration: const Duration(seconds: 5))
-        ..repeat(reverse: true);
-  late Animation<double> animationq = CurvedAnimation(
-      parent: animationController, curve: Curves.easeInOutCubic);
+  late Animation<Offset> animation2 =
+      Tween<Offset>(begin: Offset(0.0, 0.6), end: Offset.zero)
+          .animate(animationController);
+
+  late Animation<Offset> animation3 =
+      Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero)
+          .animate(animationController);
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-        position: animation,
-        child: Column(
-          children: [
-            FloatingActionButton(
-              backgroundColor: colorBlue,
-              onPressed: () {
-                imageSelector(context, "camera");
-              },
-              child: Icon(
-                Icons.camera,
-                color: colorWhite,
-              ),
+    return Column(
+      children: [
+        SlideTransition(
+          position: animation3,
+          child: FloatingActionButton(
+            backgroundColor: colorBlue,
+            onPressed: () {
+              imageSelector(context, "camera");
+            },
+            child: Icon(
+              Icons.camera,
+              color: colorWhite,
             ),
-            height15,
-            FloatingActionButton(
-              backgroundColor: colorBlue,
-              onPressed: () {
-                imageSelector(context, "gallery");
-              },
-              child: Icon(
-                Icons.photo,
-                color: colorWhite,
-              ),
+          ),
+        ),
+        height15,
+        SlideTransition(
+          position: animation2,
+          child: FloatingActionButton(
+            backgroundColor: colorBlue,
+            onPressed: () {
+              imageSelector(context, "gallery");
+            },
+            child: Icon(
+              Icons.photo,
+              color: colorWhite,
             ),
-            height15,
-            FloatingActionButton(
-              backgroundColor: colorBlue,
-              onPressed: () {
-                imageSelector(context, "gallery");
-              },
-              child: Icon(
-                Icons.edit_document,
-                color: colorWhite,
-              ),
+          ),
+        ),
+        height15,
+        SlideTransition(
+          position: animation1,
+          child: FloatingActionButton(
+            backgroundColor: colorBlue,
+            onPressed: () {
+              imageSelector(context, "gallery");
+            },
+            child: Icon(
+              Icons.edit_document,
+              color: colorWhite,
             ),
-          ],
-        ));
+          ),
+        ),
+      ],
+    );
   }
 }
