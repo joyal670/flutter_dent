@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:js';
-
 import 'package:dentcare/presentation/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:modals/modals.dart';
@@ -58,16 +56,16 @@ class ChatMain extends StatelessWidget implements CommonInterface {
                 )),
                 Row(
                   children: [
-                    InkWell(
-                      onTap: () => {
-                        imageSelector(context, "gallery") as XFile?,
-                      },
-                      child: const Icon(
-                        Icons.attach_file,
-                        color: colorBlue,
-                      ),
-                    ),
-                    // AttachmentAnchorPage(),
+                    // InkWell(
+                    //   onTap: () => {
+                    //     imageSelector(context, "gallery"),
+                    //   },
+                    //   child: const Icon(
+                    //     Icons.attach_file,
+                    //     color: colorBlue,
+                    //   ),
+                    // ),
+                    AttachmentAnchorPage(),
                     width20,
                     SizedBox(
                         width: 50,
@@ -81,7 +79,14 @@ class ChatMain extends StatelessWidget implements CommonInterface {
                                 )),
                                 backgroundColor:
                                     const MaterialStatePropertyAll(colorBlue)),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (messageController.text.isNotEmpty) {
+                                chatList.add(ChatModel(
+                                    type: 0,
+                                    message: messageController.text,
+                                    isSelected: false));
+                              }
+                            },
                             child: const Icon(Icons.send))),
                     width15
                   ],
@@ -478,7 +483,7 @@ class InfoWidget extends StatelessWidget {
 }
 
 class AttachmentAnchorPage extends StatelessWidget {
-  const AttachmentAnchorPage({Key? key}) : super(key: key);
+  AttachmentAnchorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -511,7 +516,7 @@ class AttachmentAnchorPage extends StatelessWidget {
                   Icons.attach_file,
                   color: colorBlue,
                 ),
-                width15
+                width15,
               ],
             ),
           ),
@@ -521,40 +526,69 @@ class AttachmentAnchorPage extends StatelessWidget {
   }
 }
 
-class AddAttachmentWidget extends StatelessWidget {
-  const AddAttachmentWidget({super.key});
+class AddAttachmentWidget extends StatefulWidget {
+  AddAttachmentWidget({super.key});
+
+  @override
+  State<AddAttachmentWidget> createState() => _AddAttachmentWidgetState();
+}
+
+class _AddAttachmentWidgetState extends State<AddAttachmentWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController =
+      AnimationController(vsync: this, duration: const Duration(seconds: 1))
+        ..repeat(reverse: false)
+        ..forward();
+
+  late Animation<Offset> animation =
+      Tween<Offset>(begin: Offset(0.0, 0.2), end: Offset.zero)
+          .animate(animationController);
+
+  late AnimationController animationControllerq =
+      AnimationController(vsync: this, duration: const Duration(seconds: 5))
+        ..repeat(reverse: true);
+  late Animation<double> animationq = CurvedAnimation(
+      parent: animationController, curve: Curves.easeInOutCubic);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FloatingActionButton(
-          backgroundColor: colorBlue,
-          onPressed: () {},
-          child: Icon(
-            Icons.camera,
-            color: colorWhite,
-          ),
-        ),
-        height15,
-        FloatingActionButton(
-          backgroundColor: colorBlue,
-          onPressed: () {},
-          child: Icon(
-            Icons.photo,
-            color: colorWhite,
-          ),
-        ),
-        height15,
-        FloatingActionButton(
-          backgroundColor: colorBlue,
-          onPressed: () {},
-          child: Icon(
-            Icons.edit_document,
-            color: colorWhite,
-          ),
-        ),
-      ],
-    );
+    return SlideTransition(
+        position: animation,
+        child: Column(
+          children: [
+            FloatingActionButton(
+              backgroundColor: colorBlue,
+              onPressed: () {
+                imageSelector(context, "camera");
+              },
+              child: Icon(
+                Icons.camera,
+                color: colorWhite,
+              ),
+            ),
+            height15,
+            FloatingActionButton(
+              backgroundColor: colorBlue,
+              onPressed: () {
+                imageSelector(context, "gallery");
+              },
+              child: Icon(
+                Icons.photo,
+                color: colorWhite,
+              ),
+            ),
+            height15,
+            FloatingActionButton(
+              backgroundColor: colorBlue,
+              onPressed: () {
+                imageSelector(context, "gallery");
+              },
+              child: Icon(
+                Icons.edit_document,
+                color: colorWhite,
+              ),
+            ),
+          ],
+        ));
   }
 }

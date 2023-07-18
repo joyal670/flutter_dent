@@ -264,6 +264,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  modal_widget:
+    dependency: "direct main"
+    description:
+      name: modal_widget
+      sha256: "058be1bd3d326cef0e001c4f06fde55a9a939110fd5b4f5f4da87987c361e793"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   modals:
     dependency: "direct main"
     description:
