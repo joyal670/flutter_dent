@@ -1,17 +1,21 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:js';
+
 import 'package:dentcare/presentation/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:modals/modals.dart';
-
+import '../../../common/common_utils.dart';
 import '../../../core/colors.dart';
 import '../../../core/dim.dart';
 import '../../../model/chat_model.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ChatMain extends StatelessWidget {
+class ChatMain extends StatelessWidget implements CommonInterface {
   final isLargeScreen;
   final List<ChatModel> chatList;
+
+  static CommonInterface? interface;
 
   ChatMain({
     super.key,
@@ -24,6 +28,7 @@ class ChatMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    interface = this;
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: colorWhite,
@@ -53,16 +58,16 @@ class ChatMain extends StatelessWidget {
                 )),
                 Row(
                   children: [
-                    // InkWell(
-                    //   onTap: () => {
-                    //     imageSelector(context, "gallery"),
-                    //   },
-                    //   child: const Icon(
-                    //     Icons.attach_file,
-                    //     color: colorBlue,
-                    //   ),
-                    // ),
-                    AttachmentAnchorPage(),
+                    InkWell(
+                      onTap: () => {
+                        imageSelector(context, "gallery") as XFile?,
+                      },
+                      child: const Icon(
+                        Icons.attach_file,
+                        color: colorBlue,
+                      ),
+                    ),
+                    // AttachmentAnchorPage(),
                     width20,
                     SizedBox(
                         width: 50,
@@ -128,22 +133,9 @@ class ChatMain extends StatelessWidget {
     );
   }
 
-  Future imageSelector(BuildContext context, String pickerType) async {
-    switch (pickerType) {
-      case "gallery":
-
-        /// GALLERY IMAGE PICKER
-        imageFile = await ImagePicker()
-            .pickImage(source: ImageSource.gallery, imageQuality: 100);
-
-        break;
-    }
-
-    if (imageFile != null) {
-      messageController.text = imageFile!.name.toString();
-    } else {
-      print("You have not taken image");
-    }
+  @override
+  void printdata({required XFile? file}) {
+    print("helpo $file");
   }
 }
 
